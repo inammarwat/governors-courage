@@ -1,0 +1,195 @@
+---
+title: "Courage and Governors"
+execute: 
+  echo: false
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+library(gt)
+library(primer.data)
+library(tidymodels)
+
+x <- governors |> 
+  mutate(election_result = ifelse(win_margin > 0, "Win", "Lose")) 
+```
+
+
+## Background Information
+
+This dataset is drawn from an attempt to estimate the causal effect of winning an election on the subsequent lifespan of political candidates. The study includes data from candidates who participated in competitive elections, with the treatment defined as winning versus losing a narrowly decided race. By focusing on close contests, the analysis aims to approximate random assignment, helping to address confounding variables that might otherwise bias estimates. The dataset records each candidate’s age at election, party affiliation, gender, vote margin, and eventual age at death, allowing for regression-based modeling of the relationship between electoral outcomes and longevity. 
+
+Commentary: http://www.stat.columbia.edu/~gelman/research/published/causal_paths_3.pdf 
+
+Response: https://erikgahner.dk/2020/a-response-to-andrew-gelman/
+
+### Scenarios
+
+1) Imagine you work for a life insurer, and want to forecast how long a Senator might live based on their age, party, and other variables. 
+
+```{r}
+tribble(
+  ~`Senator`, ~`Years Lived`, ~`Election Result`, ~`Win Margin`, ~`Age`, ~`Win %`, ~`Party`, ~`Sex`, ~`Other`,
+  "Sanders",        "16",   "Win", "7.2",  "56", "100%", "Democrat", "Male", "...",
+  "Warren",     "34",   "Win", "3.5",  "48", "67%",  "Democrat",   "Female", "...",
+    "..."               , "..." , "..." , "..." , "..." , "..." , "..." , "...", "...",
+  "McConnell", "12",   "Win","-9.0",  "54", "80%",  "Republican", "Male", "..."
+) |>
+  gt() |>
+  tab_header(title = "Preceptor Table") |>
+  tab_spanner(label = "Outcome", columns = c(`Years Lived`)) |>
+  tab_spanner(label = "Covariates", columns = c(`Election Result`, `Win Margin`, `Age`, `Win %`, `Party`, `Sex`, `Other`)) |>
+  cols_align(align = "center", columns = everything()) |>
+  cols_align(align = "left", columns = c(`Senator`)) |>
+  fmt_markdown(columns = everything()) |>
+  tab_footnote(
+    footnote = md("Each row is a current Senator. Age is at election."),
+    locations = cells_column_labels(columns = `Senator`)
+  ) |>
+  tab_footnote(
+    footnote = md("Years lived (or predicted to live) after being elected."),
+    locations = cells_column_spanners(spanners = "Outcome")
+  ) |>
+  tab_footnote(
+    footnote = md("Win % is percentage of elections won. Sex indicates biological sex at election."),
+    locations = cells_column_spanners(spanners = "Covariates")
+  )
+```
+
+
+```{r}
+tribble(
+  ~`Source`, ~`Person`, ~`Year`, ~`Years Lived`, ~`Election Result`, ~`Win Margin`, ~`Age`, ~`Win %`, ~`Party`, ~`Sex`, ~`Other`,
+  "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "...",
+  "Data", "Earl Warren",  "1946", "21", "Lose", "-7.2", "56", "100%", "Republican", "Male", "...",
+  "Data", "George Wallace", "1946", "24", "Win", "3.5", "48", "67%", "Democrat", "Male", "...",
+  "Data", "Nelson Rockefeller", "1946", "16", "Lose", "-9.0", "54", "80%", "Republican", "Male", "...",
+  "Data", "Pat Brown", "1967", "22", "Win", "2.9", "51", "50%", "Democrat", "Male", "...",
+  "Data", "Winthrop Rockefeller", "1967", "18", "Win", "5.1", "59", "100%", "Republican", "Male", "...",
+   "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "...",
+  "Preceptor Table", "Sanders",   "2025",      "16",   "Win", "7.2",  "56", "100%", "Democrat", "Male", "...",
+  "Preceptor Table", "Warren", "2025",      "34",   "Win", "3.5",  "48", "67%",  "Democrat",   "Female", "...",
+  "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "...",
+    "Preceptor Table","McConnell","2025",   "12",   "Win","-9.0",  "54", "80%",  "Republican", "Male", "...",
+  "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "..."
+) |>
+  gt() |>
+  tab_header(title = "Population Table") |>
+  tab_spanner(label = "Unit/Time", columns = c(`Person`, `Year`)) |>
+  tab_spanner(label = "Outcome", columns = c(`Years Lived`)) |>
+  tab_spanner(label = "Covariates", columns = c(`Election Result`, `Win Margin`, `Age`, `Win %`, `Party`, `Sex`, `Other`)) |>
+  cols_align(align = "center", columns = everything()) |>
+  cols_align(align = "left", columns = c(`Source`)) |>
+  fmt_markdown(columns = everything()) |>
+  tab_footnote(
+    footnote = md("Units: Each row is a candidate who won at least one gubernatorial election (1945–present)."),
+    locations = cells_column_spanners(spanners = "Unit/Time")
+  ) |>
+  tab_footnote(
+    footnote = md("Years lived is the number of years lived (or predicted to live) after election."),
+    locations = cells_column_spanners(spanners = "Outcome")
+  ) |>
+  tab_footnote(
+    footnote = md("Age is the age at which candidate was elected. Win % is percent of gubernatorial elections won. Other indicates additional covariates not listed here."),
+    locations = cells_column_spanners(spanners = "Covariates")
+  )
+```
+
+2) Imagine you are a researcher. You want to know if winning candidates live longer. 
+
+```{r}
+tribble(
+  ~`Candidate`, ~`Years Lived (Lose)`, ~`Years Lived (Win)`, ~`Election Result`, ~`Age`, ~`Win Margin`, ~`Win %`, ~`Party`, ~`Sex`, ~`Other`,
+  "Joe Smith",        "18*",   "23",   "Win",  "56", "7.2",  "100%", "Republican", "Male", "...",
+  "David Jones",     "22",    "28*",  "Lose", "48", "-3.5",  "67%",  "Democrat",   "Male", "...",
+  "...",               "..." , "..." , "..." , "..." , "..." , "..." , "..." , "..." , "..."
+) |>
+  gt() |>
+  tab_header(title = "Preceptor Table") |>
+  tab_spanner(label = "Potential Outcomes", columns = c(`Years Lived (Lose)`, `Years Lived (Win)`)) |>
+  tab_spanner(label = "Treatment", columns = c(`Election Result`)) |>
+  tab_spanner(label = "Covariates", columns = c(`Age`, `Win Margin`, `Win %`, `Party`, `Sex`, `Other`)) |>
+  cols_align(align = "center", columns = everything()) |>
+  cols_align(align = "left", columns = c(`Candidate`)) |>
+  fmt_markdown(columns = everything()) |>
+  tab_footnote(
+    footnote = md("Each row is a real gubernatorial candidate. Age is at election."),
+    locations = cells_column_labels(columns = `Candidate`)
+  ) |>
+  tab_footnote(
+    footnote = md("A * indicates a potential outcome that is not observed."),
+    locations = cells_column_spanners(spanners = "Potential Outcomes")
+  ) |>
+  tab_footnote(
+    footnote = md("Years lived: Years lived (or predicted to live) after election, for both possible election results."),
+    locations = cells_column_spanners(spanners = "Potential Outcomes")
+  ) |>
+  tab_footnote(
+    footnote = md("Other = additional covariates not listed here."),
+    locations = cells_column_labels(columns = `Other`)
+  )
+```
+
+```{r}
+tribble(
+  ~`Source`, ~`Candidate`, ~`Year`, ~`Years Lived (Lose)`, ~`Years Lived (Win)`, ~`Election Result`, ~`Win Margin`, ~`Age`, ~`Win %`, ~`Party`, ~`Sex`, ~`Other`,
+  "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "...",
+  "Data", "Earl Warren",  "1946", "18*", "23", "Win", "7.2", "56", "100%", "Republican", "Male", "...",
+  "Data", "George Wallace", "1946", "22", "28*", "Lose", "-3.5", "48", "67%", "Democrat", "Male", "...",
+  "Data", "Nelson Rockefeller", "1946", "14*", "17", "Win", "9.0", "54", "80%", "Republican", "Male", "...",
+  "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "...",
+  "Preceptor Table", "Joe Smith",  "2025",      "18*",   "23",   "Win",  "56", "7.2",  "100%", "Republican", "Male", "...",
+    "Preceptor Table",  "David Jones",  "2025",    "22",    "28*",  "Lose", "48", "-3.5",  "67%",  "Democrat",   "Male", "...",
+  "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "..."
+) |>
+  gt() |>
+  tab_header(title = "Population Table: Potential Years Lived After Election") |>
+  tab_spanner(label = "Unit/Time", columns = c(`Candidate`, `Year`)) |>
+  tab_spanner(label = "Potential Outcomes", columns = c(`Years Lived (Lose)`, `Years Lived (Win)`)) |>
+  tab_spanner(label = "Treatment", columns = c(`Election Result`)) |>
+  tab_spanner(label = "Covariates", columns = c(`Win Margin`, `Age`, `Win %`, `Party`, `Sex`, `Other`)) |>
+  cols_align(align = "center", columns = everything()) |>
+  cols_align(align = "left", columns = c(`Source`)) |>
+  fmt_markdown(columns = everything()) |>
+  tab_footnote(
+    footnote = md("A * indicates a potential outcome that is not observed."),
+    locations = cells_column_spanners(spanners = "Potential Outcomes")
+  ) |>
+  tab_footnote(
+    footnote = md("Years lived: Number of years lived (or predicted to live) after election for both possible outcomes."),
+    locations = cells_column_spanners(spanners = "Potential Outcomes")
+  ) |>
+  tab_footnote(
+    footnote = md("Other = additional covariates not listed here. Age is at election; Win % is percent of gubernatorial elections won."),
+    locations = cells_column_spanners(spanners = "Covariates")
+  )
+```
+
+## Data Filtering
+
+* As you may have already seen in the setup chunk, we have assigned the `governors` dataset to a new variable `x` and created a new variable within it that tells you if the candidate won or lost their election (this can differ by year if the candidate ran twice or more).
+
+* Scenario 1 (Predictive):
+
+* Suppose you want to build a model to predict how long a senator is expected to live after being elected. Which rows should you delete from your data? Why? (There is no right answer to this question!)
+
+
+* Scenario 2 (Causal):
+
+* Now imagine you want to estimate the causal effect of winning an election on how long a candidate lives after the election.  What filtering strategy and variables will you use? Discuss with your group, record your answer, and be ready to share your reasoning. Once you filter your data, assign the result to a data frame named `x_causal`.
+
+## Model Estimation
+
+* Keep in mind that we will be using a linear regression model for this, since `lived_after`, our outcome variable, is a continuous variable. In Tidymodels, this is done with `linear_reg().`
+
+* Estimate a regression model where `lived_after` is the outcome and `sex` is the predictor. Display the model results and confidence intervals. Interpret the estimate and what its confidence interval tells you. For now just use the original `x` data set. 
+
+* Now let’s return to the scenario-specific models. Fit two linear regression models using the outcome `lived_after`, data from either `x_pred` or `x_causal`, and several covariates. Adjust your model until you find a version that seems accurate and useful for your scenario. 
+
+* Assign the fitted model to either `fit_pred` or `fit_causal` as appropriate.
+
+* After fitting your models, view the output with confidence intervals. Are the covariates statistically significant. Interpret what each covariate’s estimate means in context.
+
