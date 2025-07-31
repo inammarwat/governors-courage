@@ -2,6 +2,8 @@
 title: "Courage and Governors"
 execute: 
   echo: false
+  message: false
+  warning: false
 ---
 
 ```{r}
