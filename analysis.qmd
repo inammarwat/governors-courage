@@ -176,10 +176,65 @@ tribble(
 
 * Suppose you want to build a model to predict how long a senator is expected to live after being elected. Which rows should you delete from your data? Why? (There is no right answer to this question!)
 
+```{r}
+# Step 1: Filter the data for prediction
+x_filtered <- x |> 
+  # Only include candidates who won at least one election
+  filter(election_result == "Win") |>
+  # Remove entries with missing outcome (lived_after)
+  filter(!is.na(lived_after)) |>
+  # Optional: focus on more recent elections for relevance
+  filter(year >= 1945)
+```
+
+```{r}
+# Step 2: View a sample of the filtered dataset
+x_filtered |>
+  mutate(
+    name = paste(first_name, last_name),
+    election_age = round(election_age),        # Whole number
+    win_margin = round(win_margin, 1),         # One decimal
+    lived_after = round(lived_after)           # Whole number
+  ) |>
+  select(name, year, election_age, election_result, party, sex, win_margin, lived_after) |>
+  slice_head(n = 10) |>
+  gt() |>
+  tab_header(title = "Sample of Filtered Data for Predictive Modeling") |>
+  cols_align(align = "center", columns = everything()) |>
+  fmt_markdown(columns = everything())
+```
+
 
 * Scenario 2 (Causal):
 
 * Now imagine you want to estimate the causal effect of winning an election on how long a candidate lives after the election.  What filtering strategy and variables will you use? Discuss with your group, record your answer, and be ready to share your reasoning. Once you filter your data, assign the result to a data frame named `x_causal`.
+
+```{r}
+# Step 1: Filter the dataset
+x_causal <- x |> 
+  filter(year > 1945) |> 
+  filter(abs(win_margin) < 5) |> 
+  filter(!is.na(lived_after)) |> 
+  mutate(
+    name = paste(first_name, last_name),
+    election_age = round(election_age),
+    win_margin = round(win_margin, 1),
+    lived_after = round(lived_after),
+    #treat = if_else(election_result == "Win", 1, 0)
+  )
+
+# Step 2: View the first 10 rows in a gt table
+x_causal |> 
+  select(name, year, party, sex, election_age, win_margin, lived_after, election_result) |> 
+  slice_head(n = 10) |> 
+  gt() |>
+  tab_header(
+    title = "Sample of Filtered Governors for Causal Inference"
+  ) |>
+  cols_align(align = "center", columns = everything()) |>
+  fmt_number(columns = c(election_age, win_margin, lived_after), decimals = 0)
+```
+
 
 ## Model Estimation
 
@@ -187,9 +242,65 @@ tribble(
 
 * Estimate a regression model where `lived_after` is the outcome and `sex` is the predictor. Display the model results and confidence intervals. Interpret the estimate and what its confidence interval tells you. For now just use the original `x` data set. 
 
+
 * Now let’s return to the scenario-specific models. Fit two linear regression models using the outcome `lived_after`, data from either `x_pred` or `x_causal`, and several covariates. Adjust your model until you find a version that seems accurate and useful for your scenario. 
 
 * Assign the fitted model to either `fit_pred` or `fit_causal` as appropriate.
 
 * After fitting your models, view the output with confidence intervals. Are the covariates statistically significant. Interpret what each covariate’s estimate means in context.
 
+## just include only one independant variable (sex)
+
+```{r}
+# Step 1: Specify the model
+lm_model <- linear_reg() |> 
+  set_engine("lm")
+
+# Step 2: Fit the model
+lm_fit <- lm_model |> 
+  fit(lived_after ~ sex, data = x_filtered)
+
+# Step 3: View model summary and confidence intervals
+model_summary <- tidy(lm_fit, conf.int = TRUE)
+model_summary
+```
+
+```{r}
+# Step 1: Specify the model
+lm_model <- linear_reg() |> 
+  set_engine("lm")
+
+# Step 2: Fit the model
+lm_fit <- lm_model |> 
+  fit(lived_after ~ sex, data = x_causal)
+
+# Step 3: View model summary and confidence intervals
+model_summary <- tidy(lm_fit, conf.int = TRUE)
+model_summary
+```
+
+## Predictive
+
+```{r}
+# Predictive model using sex, party, election_age, win_margin
+fit_pred <- linear_reg() |> 
+  set_engine("lm") |> 
+  fit(lived_after ~ party + election_age + win_margin, data = x_filtered)
+
+# View predictive model results with confidence intervals
+summary_pred <- tidy(fit_pred, conf.int = TRUE)
+summary_pred
+```
+
+## Causal
+
+```{r}
+# Causal model using the same covariates
+fit_causal <- linear_reg() |> 
+  set_engine("lm") |> 
+  fit(lived_after ~ party + election_age + win_margin, data = x_causal)
+
+# View causal model results with confidence intervals
+summary_causal <- tidy(fit_causal, conf.int = TRUE)
+summary_causal
+```

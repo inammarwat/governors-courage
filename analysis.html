@@ -1,0 +1,2907 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Courage and Governors</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="analysis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="analysis_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="analysis_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="analysis_files/libs/quarto-html/popper.min.js"></script>
+<script src="analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="analysis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="analysis_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="analysis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="analysis_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Courage and Governors</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="background-information" class="level2">
+<h2 class="anchored" data-anchor-id="background-information">Background Information</h2>
+<p>This dataset is drawn from an attempt to estimate the causal effect of winning an election on the subsequent lifespan of political candidates. The study includes data from candidates who participated in competitive elections, with the treatment defined as winning versus losing a narrowly decided race. By focusing on close contests, the analysis aims to approximate random assignment, helping to address confounding variables that might otherwise bias estimates. The dataset records each candidate’s age at election, party affiliation, gender, vote margin, and eventual age at death, allowing for regression-based modeling of the relationship between electoral outcomes and longevity.</p>
+<p>Commentary: http://www.stat.columbia.edu/~gelman/research/published/causal_paths_3.pdf</p>
+<p>Response: https://erikgahner.dk/2020/a-response-to-andrew-gelman/</p>
+<section id="scenarios" class="level3">
+<h3 class="anchored" data-anchor-id="scenarios">Scenarios</h3>
+<ol type="1">
+<li>Imagine you work for a life insurer, and want to forecast how long a Senator might live based on their age, party, and other variables.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div id="pfvxgetpwb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pfvxgetpwb table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pfvxgetpwb thead, #pfvxgetpwb tbody, #pfvxgetpwb tfoot, #pfvxgetpwb tr, #pfvxgetpwb td, #pfvxgetpwb th {
+  border-style: none;
+}
+
+#pfvxgetpwb p {
+  margin: 0;
+  padding: 0;
+}
+
+#pfvxgetpwb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pfvxgetpwb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pfvxgetpwb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pfvxgetpwb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pfvxgetpwb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pfvxgetpwb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pfvxgetpwb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pfvxgetpwb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pfvxgetpwb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pfvxgetpwb .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pfvxgetpwb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pfvxgetpwb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pfvxgetpwb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pfvxgetpwb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pfvxgetpwb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfvxgetpwb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pfvxgetpwb .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pfvxgetpwb .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pfvxgetpwb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfvxgetpwb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pfvxgetpwb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfvxgetpwb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pfvxgetpwb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfvxgetpwb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pfvxgetpwb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfvxgetpwb .gt_left {
+  text-align: left;
+}
+
+#pfvxgetpwb .gt_center {
+  text-align: center;
+}
+
+#pfvxgetpwb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pfvxgetpwb .gt_font_normal {
+  font-weight: normal;
+}
+
+#pfvxgetpwb .gt_font_bold {
+  font-weight: bold;
+}
+
+#pfvxgetpwb .gt_font_italic {
+  font-style: italic;
+}
+
+#pfvxgetpwb .gt_super {
+  font-size: 65%;
+}
+
+#pfvxgetpwb .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pfvxgetpwb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pfvxgetpwb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pfvxgetpwb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pfvxgetpwb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pfvxgetpwb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pfvxgetpwb .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#pfvxgetpwb .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#pfvxgetpwb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="9" class="gt_heading gt_title gt_font_normal gt_bottom_border">Preceptor Table</th>
+</tr>
+<tr class="gt_col_headings gt_spanner_row even">
+<th rowspan="2" id="Senator" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Senator<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span></th>
+<th id="Outcome" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="col"><div class="gt_column_spanner">
+Outcome<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</div></th>
+<th colspan="7" id="Covariates" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Covariates<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span>
+</div></th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Years-Lived" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Years Lived</th>
+<th id="Election-Result" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Election Result</th>
+<th id="Win-Margin" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Win Margin</th>
+<th id="Age" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Age</th>
+<th id="Win-%" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Win %</th>
+<th id="Party" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Party</th>
+<th id="Sex" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Sex</th>
+<th id="Other" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Other</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Senator">Sanders</td>
+<td class="gt_row gt_center" headers="Years Lived">16</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">7.2</td>
+<td class="gt_row gt_center" headers="Age">56</td>
+<td class="gt_row gt_center" headers="Win %">100%</td>
+<td class="gt_row gt_center" headers="Party">Democrat</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Senator">Warren</td>
+<td class="gt_row gt_center" headers="Years Lived">34</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">3.5</td>
+<td class="gt_row gt_center" headers="Age">48</td>
+<td class="gt_row gt_center" headers="Win %">67%</td>
+<td class="gt_row gt_center" headers="Party">Democrat</td>
+<td class="gt_row gt_center" headers="Sex">Female</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Senator">…</td>
+<td class="gt_row gt_center" headers="Years Lived">…</td>
+<td class="gt_row gt_center" headers="Election Result">…</td>
+<td class="gt_row gt_center" headers="Win Margin">…</td>
+<td class="gt_row gt_center" headers="Age">…</td>
+<td class="gt_row gt_center" headers="Win %">…</td>
+<td class="gt_row gt_center" headers="Party">…</td>
+<td class="gt_row gt_center" headers="Sex">…</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Senator">McConnell</td>
+<td class="gt_row gt_center" headers="Years Lived">12</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">-9.0</td>
+<td class="gt_row gt_center" headers="Age">54</td>
+<td class="gt_row gt_center" headers="Win %">80%</td>
+<td class="gt_row gt_center" headers="Party">Republican</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="9" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Years lived (or predicted to live) after being elected.</td>
+</tr>
+<tr class="even">
+<td colspan="9" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> Win % is percentage of elections won. Sex indicates biological sex at election.</td>
+</tr>
+<tr class="odd">
+<td colspan="9" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span> Each row is a current Senator. Age is at election.</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="qxnyfclngy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qxnyfclngy table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#qxnyfclngy thead, #qxnyfclngy tbody, #qxnyfclngy tfoot, #qxnyfclngy tr, #qxnyfclngy td, #qxnyfclngy th {
+  border-style: none;
+}
+
+#qxnyfclngy p {
+  margin: 0;
+  padding: 0;
+}
+
+#qxnyfclngy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#qxnyfclngy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#qxnyfclngy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#qxnyfclngy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qxnyfclngy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qxnyfclngy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qxnyfclngy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qxnyfclngy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qxnyfclngy .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#qxnyfclngy .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#qxnyfclngy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qxnyfclngy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qxnyfclngy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qxnyfclngy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qxnyfclngy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxnyfclngy .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#qxnyfclngy .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#qxnyfclngy .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#qxnyfclngy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxnyfclngy .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#qxnyfclngy .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxnyfclngy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qxnyfclngy .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxnyfclngy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qxnyfclngy .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxnyfclngy .gt_left {
+  text-align: left;
+}
+
+#qxnyfclngy .gt_center {
+  text-align: center;
+}
+
+#qxnyfclngy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qxnyfclngy .gt_font_normal {
+  font-weight: normal;
+}
+
+#qxnyfclngy .gt_font_bold {
+  font-weight: bold;
+}
+
+#qxnyfclngy .gt_font_italic {
+  font-style: italic;
+}
+
+#qxnyfclngy .gt_super {
+  font-size: 65%;
+}
+
+#qxnyfclngy .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#qxnyfclngy .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#qxnyfclngy .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#qxnyfclngy .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#qxnyfclngy .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#qxnyfclngy .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#qxnyfclngy .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#qxnyfclngy .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#qxnyfclngy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="11" class="gt_heading gt_title gt_font_normal gt_bottom_border">Population Table</th>
+</tr>
+<tr class="gt_col_headings gt_spanner_row even">
+<th rowspan="2" id="Source" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Source</th>
+<th colspan="2" id="Unit/Time" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Unit/Time<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
+</div></th>
+<th id="Outcome" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="col"><div class="gt_column_spanner">
+Outcome<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span>
+</div></th>
+<th colspan="7" id="Covariates" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Covariates<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span>
+</div></th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Person" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Person</th>
+<th id="Year" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Year</th>
+<th id="Years-Lived" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Years Lived</th>
+<th id="Election-Result" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Election Result</th>
+<th id="Win-Margin" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Win Margin</th>
+<th id="Age" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Age</th>
+<th id="Win-%" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Win %</th>
+<th id="Party" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Party</th>
+<th id="Sex" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Sex</th>
+<th id="Other" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Other</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">…</td>
+<td class="gt_row gt_center" headers="Person">…</td>
+<td class="gt_row gt_center" headers="Year">…</td>
+<td class="gt_row gt_center" headers="Years Lived">…</td>
+<td class="gt_row gt_center" headers="Election Result">…</td>
+<td class="gt_row gt_center" headers="Win Margin">…</td>
+<td class="gt_row gt_center" headers="Age">…</td>
+<td class="gt_row gt_center" headers="Win %">…</td>
+<td class="gt_row gt_center" headers="Party">…</td>
+<td class="gt_row gt_center" headers="Sex">…</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">Data</td>
+<td class="gt_row gt_center" headers="Person">Earl Warren</td>
+<td class="gt_row gt_center" headers="Year">1946</td>
+<td class="gt_row gt_center" headers="Years Lived">21</td>
+<td class="gt_row gt_center" headers="Election Result">Lose</td>
+<td class="gt_row gt_center" headers="Win Margin">-7.2</td>
+<td class="gt_row gt_center" headers="Age">56</td>
+<td class="gt_row gt_center" headers="Win %">100%</td>
+<td class="gt_row gt_center" headers="Party">Republican</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">Data</td>
+<td class="gt_row gt_center" headers="Person">George Wallace</td>
+<td class="gt_row gt_center" headers="Year">1946</td>
+<td class="gt_row gt_center" headers="Years Lived">24</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">3.5</td>
+<td class="gt_row gt_center" headers="Age">48</td>
+<td class="gt_row gt_center" headers="Win %">67%</td>
+<td class="gt_row gt_center" headers="Party">Democrat</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">Data</td>
+<td class="gt_row gt_center" headers="Person">Nelson Rockefeller</td>
+<td class="gt_row gt_center" headers="Year">1946</td>
+<td class="gt_row gt_center" headers="Years Lived">16</td>
+<td class="gt_row gt_center" headers="Election Result">Lose</td>
+<td class="gt_row gt_center" headers="Win Margin">-9.0</td>
+<td class="gt_row gt_center" headers="Age">54</td>
+<td class="gt_row gt_center" headers="Win %">80%</td>
+<td class="gt_row gt_center" headers="Party">Republican</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">Data</td>
+<td class="gt_row gt_center" headers="Person">Pat Brown</td>
+<td class="gt_row gt_center" headers="Year">1967</td>
+<td class="gt_row gt_center" headers="Years Lived">22</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">2.9</td>
+<td class="gt_row gt_center" headers="Age">51</td>
+<td class="gt_row gt_center" headers="Win %">50%</td>
+<td class="gt_row gt_center" headers="Party">Democrat</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">Data</td>
+<td class="gt_row gt_center" headers="Person">Winthrop Rockefeller</td>
+<td class="gt_row gt_center" headers="Year">1967</td>
+<td class="gt_row gt_center" headers="Years Lived">18</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">5.1</td>
+<td class="gt_row gt_center" headers="Age">59</td>
+<td class="gt_row gt_center" headers="Win %">100%</td>
+<td class="gt_row gt_center" headers="Party">Republican</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">…</td>
+<td class="gt_row gt_center" headers="Person">…</td>
+<td class="gt_row gt_center" headers="Year">…</td>
+<td class="gt_row gt_center" headers="Years Lived">…</td>
+<td class="gt_row gt_center" headers="Election Result">…</td>
+<td class="gt_row gt_center" headers="Win Margin">…</td>
+<td class="gt_row gt_center" headers="Age">…</td>
+<td class="gt_row gt_center" headers="Win %">…</td>
+<td class="gt_row gt_center" headers="Party">…</td>
+<td class="gt_row gt_center" headers="Sex">…</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">Preceptor Table</td>
+<td class="gt_row gt_center" headers="Person">Sanders</td>
+<td class="gt_row gt_center" headers="Year">2025</td>
+<td class="gt_row gt_center" headers="Years Lived">16</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">7.2</td>
+<td class="gt_row gt_center" headers="Age">56</td>
+<td class="gt_row gt_center" headers="Win %">100%</td>
+<td class="gt_row gt_center" headers="Party">Democrat</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">Preceptor Table</td>
+<td class="gt_row gt_center" headers="Person">Warren</td>
+<td class="gt_row gt_center" headers="Year">2025</td>
+<td class="gt_row gt_center" headers="Years Lived">34</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">3.5</td>
+<td class="gt_row gt_center" headers="Age">48</td>
+<td class="gt_row gt_center" headers="Win %">67%</td>
+<td class="gt_row gt_center" headers="Party">Democrat</td>
+<td class="gt_row gt_center" headers="Sex">Female</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">…</td>
+<td class="gt_row gt_center" headers="Person">…</td>
+<td class="gt_row gt_center" headers="Year">…</td>
+<td class="gt_row gt_center" headers="Years Lived">…</td>
+<td class="gt_row gt_center" headers="Election Result">…</td>
+<td class="gt_row gt_center" headers="Win Margin">…</td>
+<td class="gt_row gt_center" headers="Age">…</td>
+<td class="gt_row gt_center" headers="Win %">…</td>
+<td class="gt_row gt_center" headers="Party">…</td>
+<td class="gt_row gt_center" headers="Sex">…</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">Preceptor Table</td>
+<td class="gt_row gt_center" headers="Person">McConnell</td>
+<td class="gt_row gt_center" headers="Year">2025</td>
+<td class="gt_row gt_center" headers="Years Lived">12</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">-9.0</td>
+<td class="gt_row gt_center" headers="Age">54</td>
+<td class="gt_row gt_center" headers="Win %">80%</td>
+<td class="gt_row gt_center" headers="Party">Republican</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">…</td>
+<td class="gt_row gt_center" headers="Person">…</td>
+<td class="gt_row gt_center" headers="Year">…</td>
+<td class="gt_row gt_center" headers="Years Lived">…</td>
+<td class="gt_row gt_center" headers="Election Result">…</td>
+<td class="gt_row gt_center" headers="Win Margin">…</td>
+<td class="gt_row gt_center" headers="Age">…</td>
+<td class="gt_row gt_center" headers="Win %">…</td>
+<td class="gt_row gt_center" headers="Party">…</td>
+<td class="gt_row gt_center" headers="Sex">…</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="11" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Units: Each row is a candidate who won at least one gubernatorial election (1945–present).</td>
+</tr>
+<tr class="even">
+<td colspan="11" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> Years lived is the number of years lived (or predicted to live) after election.</td>
+</tr>
+<tr class="odd">
+<td colspan="11" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span> Age is the age at which candidate was elected. Win % is percent of gubernatorial elections won. Other indicates additional covariates not listed here.</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Imagine you are a researcher. You want to know if winning candidates live longer.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div id="rxhdjncobm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rxhdjncobm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#rxhdjncobm thead, #rxhdjncobm tbody, #rxhdjncobm tfoot, #rxhdjncobm tr, #rxhdjncobm td, #rxhdjncobm th {
+  border-style: none;
+}
+
+#rxhdjncobm p {
+  margin: 0;
+  padding: 0;
+}
+
+#rxhdjncobm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#rxhdjncobm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#rxhdjncobm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#rxhdjncobm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rxhdjncobm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rxhdjncobm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rxhdjncobm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rxhdjncobm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rxhdjncobm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#rxhdjncobm .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#rxhdjncobm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rxhdjncobm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rxhdjncobm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rxhdjncobm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rxhdjncobm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxhdjncobm .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#rxhdjncobm .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#rxhdjncobm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#rxhdjncobm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxhdjncobm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#rxhdjncobm .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxhdjncobm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rxhdjncobm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxhdjncobm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rxhdjncobm .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rxhdjncobm .gt_left {
+  text-align: left;
+}
+
+#rxhdjncobm .gt_center {
+  text-align: center;
+}
+
+#rxhdjncobm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rxhdjncobm .gt_font_normal {
+  font-weight: normal;
+}
+
+#rxhdjncobm .gt_font_bold {
+  font-weight: bold;
+}
+
+#rxhdjncobm .gt_font_italic {
+  font-style: italic;
+}
+
+#rxhdjncobm .gt_super {
+  font-size: 65%;
+}
+
+#rxhdjncobm .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#rxhdjncobm .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#rxhdjncobm .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#rxhdjncobm .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#rxhdjncobm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#rxhdjncobm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#rxhdjncobm .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#rxhdjncobm .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#rxhdjncobm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="10" class="gt_heading gt_title gt_font_normal gt_bottom_border">Preceptor Table</th>
+</tr>
+<tr class="gt_col_headings gt_spanner_row even">
+<th rowspan="2" id="Candidate" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Candidate<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span></th>
+<th colspan="2" id="Potential Outcomes" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Potential Outcomes<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1,2</sup></span>
+</div></th>
+<th id="Treatment" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="col"><div class="gt_column_spanner">
+Treatment
+</div></th>
+<th colspan="6" id="Covariates" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Covariates
+</div></th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Years-Lived-(Lose)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Years Lived (Lose)</th>
+<th id="Years-Lived-(Win)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Years Lived (Win)</th>
+<th id="Election-Result" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Election Result</th>
+<th id="Age" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Age</th>
+<th id="Win-Margin" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Win Margin</th>
+<th id="Win-%" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Win %</th>
+<th id="Party" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Party</th>
+<th id="Sex" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Sex</th>
+<th id="Other" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Other<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>4</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Candidate">Joe Smith</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">18*</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">23</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Age">56</td>
+<td class="gt_row gt_center" headers="Win Margin">7.2</td>
+<td class="gt_row gt_center" headers="Win %">100%</td>
+<td class="gt_row gt_center" headers="Party">Republican</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Candidate">David Jones</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">22</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">28*</td>
+<td class="gt_row gt_center" headers="Election Result">Lose</td>
+<td class="gt_row gt_center" headers="Age">48</td>
+<td class="gt_row gt_center" headers="Win Margin">-3.5</td>
+<td class="gt_row gt_center" headers="Win %">67%</td>
+<td class="gt_row gt_center" headers="Party">Democrat</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Candidate">…</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">…</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">…</td>
+<td class="gt_row gt_center" headers="Election Result">…</td>
+<td class="gt_row gt_center" headers="Age">…</td>
+<td class="gt_row gt_center" headers="Win Margin">…</td>
+<td class="gt_row gt_center" headers="Win %">…</td>
+<td class="gt_row gt_center" headers="Party">…</td>
+<td class="gt_row gt_center" headers="Sex">…</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="10" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> A * indicates a potential outcome that is not observed.</td>
+</tr>
+<tr class="even">
+<td colspan="10" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> Years lived: Years lived (or predicted to live) after election, for both possible election results.</td>
+</tr>
+<tr class="odd">
+<td colspan="10" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span> Each row is a real gubernatorial candidate. Age is at election.</td>
+</tr>
+<tr class="even">
+<td colspan="10" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>4</sup></span> Other = additional covariates not listed here.</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="egmvuierqi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#egmvuierqi table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#egmvuierqi thead, #egmvuierqi tbody, #egmvuierqi tfoot, #egmvuierqi tr, #egmvuierqi td, #egmvuierqi th {
+  border-style: none;
+}
+
+#egmvuierqi p {
+  margin: 0;
+  padding: 0;
+}
+
+#egmvuierqi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#egmvuierqi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#egmvuierqi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#egmvuierqi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#egmvuierqi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#egmvuierqi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#egmvuierqi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#egmvuierqi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#egmvuierqi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#egmvuierqi .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#egmvuierqi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#egmvuierqi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#egmvuierqi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#egmvuierqi .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#egmvuierqi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#egmvuierqi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#egmvuierqi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#egmvuierqi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#egmvuierqi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#egmvuierqi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#egmvuierqi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#egmvuierqi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#egmvuierqi .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#egmvuierqi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#egmvuierqi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#egmvuierqi .gt_left {
+  text-align: left;
+}
+
+#egmvuierqi .gt_center {
+  text-align: center;
+}
+
+#egmvuierqi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#egmvuierqi .gt_font_normal {
+  font-weight: normal;
+}
+
+#egmvuierqi .gt_font_bold {
+  font-weight: bold;
+}
+
+#egmvuierqi .gt_font_italic {
+  font-style: italic;
+}
+
+#egmvuierqi .gt_super {
+  font-size: 65%;
+}
+
+#egmvuierqi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#egmvuierqi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#egmvuierqi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#egmvuierqi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#egmvuierqi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#egmvuierqi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#egmvuierqi .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#egmvuierqi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#egmvuierqi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="12" class="gt_heading gt_title gt_font_normal gt_bottom_border">Population Table: Potential Years Lived After Election</th>
+</tr>
+<tr class="gt_col_headings gt_spanner_row even">
+<th rowspan="2" id="Source" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Source</th>
+<th colspan="2" id="Unit/Time" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Unit/Time
+</div></th>
+<th colspan="2" id="Potential Outcomes" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Potential Outcomes<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1,2</sup></span>
+</div></th>
+<th id="Treatment" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="col"><div class="gt_column_spanner">
+Treatment
+</div></th>
+<th colspan="6" id="Covariates" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Covariates<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span>
+</div></th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Candidate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Candidate</th>
+<th id="Year" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Year</th>
+<th id="Years-Lived-(Lose)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Years Lived (Lose)</th>
+<th id="Years-Lived-(Win)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Years Lived (Win)</th>
+<th id="Election-Result" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Election Result</th>
+<th id="Win-Margin" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Win Margin</th>
+<th id="Age" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Age</th>
+<th id="Win-%" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Win %</th>
+<th id="Party" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Party</th>
+<th id="Sex" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Sex</th>
+<th id="Other" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Other</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">…</td>
+<td class="gt_row gt_center" headers="Candidate">…</td>
+<td class="gt_row gt_center" headers="Year">…</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">…</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">…</td>
+<td class="gt_row gt_center" headers="Election Result">…</td>
+<td class="gt_row gt_center" headers="Win Margin">…</td>
+<td class="gt_row gt_center" headers="Age">…</td>
+<td class="gt_row gt_center" headers="Win %">…</td>
+<td class="gt_row gt_center" headers="Party">…</td>
+<td class="gt_row gt_center" headers="Sex">…</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">Data</td>
+<td class="gt_row gt_center" headers="Candidate">Earl Warren</td>
+<td class="gt_row gt_center" headers="Year">1946</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">18*</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">23</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">7.2</td>
+<td class="gt_row gt_center" headers="Age">56</td>
+<td class="gt_row gt_center" headers="Win %">100%</td>
+<td class="gt_row gt_center" headers="Party">Republican</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">Data</td>
+<td class="gt_row gt_center" headers="Candidate">George Wallace</td>
+<td class="gt_row gt_center" headers="Year">1946</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">22</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">28*</td>
+<td class="gt_row gt_center" headers="Election Result">Lose</td>
+<td class="gt_row gt_center" headers="Win Margin">-3.5</td>
+<td class="gt_row gt_center" headers="Age">48</td>
+<td class="gt_row gt_center" headers="Win %">67%</td>
+<td class="gt_row gt_center" headers="Party">Democrat</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">Data</td>
+<td class="gt_row gt_center" headers="Candidate">Nelson Rockefeller</td>
+<td class="gt_row gt_center" headers="Year">1946</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">14*</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">17</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">9.0</td>
+<td class="gt_row gt_center" headers="Age">54</td>
+<td class="gt_row gt_center" headers="Win %">80%</td>
+<td class="gt_row gt_center" headers="Party">Republican</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">…</td>
+<td class="gt_row gt_center" headers="Candidate">…</td>
+<td class="gt_row gt_center" headers="Year">…</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">…</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">…</td>
+<td class="gt_row gt_center" headers="Election Result">…</td>
+<td class="gt_row gt_center" headers="Win Margin">…</td>
+<td class="gt_row gt_center" headers="Age">…</td>
+<td class="gt_row gt_center" headers="Win %">…</td>
+<td class="gt_row gt_center" headers="Party">…</td>
+<td class="gt_row gt_center" headers="Sex">…</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">Preceptor Table</td>
+<td class="gt_row gt_center" headers="Candidate">Joe Smith</td>
+<td class="gt_row gt_center" headers="Year">2025</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">18*</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">23</td>
+<td class="gt_row gt_center" headers="Election Result">Win</td>
+<td class="gt_row gt_center" headers="Win Margin">56</td>
+<td class="gt_row gt_center" headers="Age">7.2</td>
+<td class="gt_row gt_center" headers="Win %">100%</td>
+<td class="gt_row gt_center" headers="Party">Republican</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Source">Preceptor Table</td>
+<td class="gt_row gt_center" headers="Candidate">David Jones</td>
+<td class="gt_row gt_center" headers="Year">2025</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">22</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">28*</td>
+<td class="gt_row gt_center" headers="Election Result">Lose</td>
+<td class="gt_row gt_center" headers="Win Margin">48</td>
+<td class="gt_row gt_center" headers="Age">-3.5</td>
+<td class="gt_row gt_center" headers="Win %">67%</td>
+<td class="gt_row gt_center" headers="Party">Democrat</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Source">…</td>
+<td class="gt_row gt_center" headers="Candidate">…</td>
+<td class="gt_row gt_center" headers="Year">…</td>
+<td class="gt_row gt_center" headers="Years Lived (Lose)">…</td>
+<td class="gt_row gt_center" headers="Years Lived (Win)">…</td>
+<td class="gt_row gt_center" headers="Election Result">…</td>
+<td class="gt_row gt_center" headers="Win Margin">…</td>
+<td class="gt_row gt_center" headers="Age">…</td>
+<td class="gt_row gt_center" headers="Win %">…</td>
+<td class="gt_row gt_center" headers="Party">…</td>
+<td class="gt_row gt_center" headers="Sex">…</td>
+<td class="gt_row gt_center" headers="Other">…</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="12" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> A * indicates a potential outcome that is not observed.</td>
+</tr>
+<tr class="even">
+<td colspan="12" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> Years lived: Number of years lived (or predicted to live) after election for both possible outcomes.</td>
+</tr>
+<tr class="odd">
+<td colspan="12" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span> Other = additional covariates not listed here. Age is at election; Win % is percent of gubernatorial elections won.</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-filtering" class="level2">
+<h2 class="anchored" data-anchor-id="data-filtering">Data Filtering</h2>
+<ul>
+<li><p>As you may have already seen in the setup chunk, we have assigned the <code>governors</code> dataset to a new variable <code>x</code> and created a new variable within it that tells you if the candidate won or lost their election (this can differ by year if the candidate ran twice or more).</p></li>
+<li><p>Scenario 1 (Predictive):</p></li>
+<li><p>Suppose you want to build a model to predict how long a senator is expected to live after being elected. Which rows should you delete from your data? Why? (There is no right answer to this question!)</p></li>
+<li><p>Scenario 2 (Causal):</p></li>
+<li><p>Now imagine you want to estimate the causal effect of winning an election on how long a candidate lives after the election. What filtering strategy and variables will you use? Discuss with your group, record your answer, and be ready to share your reasoning. Once you filter your data, assign the result to a data frame named <code>x_causal</code>.</p></li>
+</ul>
+</section>
+<section id="model-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="model-estimation">Model Estimation</h2>
+<ul>
+<li><p>Keep in mind that we will be using a linear regression model for this, since <code>lived_after</code>, our outcome variable, is a continuous variable. In Tidymodels, this is done with <code>linear_reg().</code></p></li>
+<li><p>Estimate a regression model where <code>lived_after</code> is the outcome and <code>sex</code> is the predictor. Display the model results and confidence intervals. Interpret the estimate and what its confidence interval tells you. For now just use the original <code>x</code> data set.</p></li>
+<li><p>Now let’s return to the scenario-specific models. Fit two linear regression models using the outcome <code>lived_after</code>, data from either <code>x_pred</code> or <code>x_causal</code>, and several covariates. Adjust your model until you find a version that seems accurate and useful for your scenario.</p></li>
+<li><p>Assign the fitted model to either <code>fit_pred</code> or <code>fit_causal</code> as appropriate.</p></li>
+<li><p>After fitting your models, view the output with confidence intervals. Are the covariates statistically significant. Interpret what each covariate’s estimate means in context.</p></li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
